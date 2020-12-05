@@ -17,8 +17,9 @@ namespace tool_statictis_keyword.Models.Data
         public virtual ICollection<Video> TopVideoPopular { get; set; }
     }
 
-    public class SearchByDayResult : BaseModel
+    public class SearchByDayResult
     {
+        public int Id { get; set; }
         public int VideoPublishCount { get; set; }
         public int VideoLiveCount { get; set; }
         public int VideoMostPopularId { get; set; }

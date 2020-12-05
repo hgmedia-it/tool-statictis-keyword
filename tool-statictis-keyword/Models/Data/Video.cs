@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace tool_statictis_keyword.Models.Data
 {
-    public class Video : BaseModel
-    {       
+    public class Video 
+    {
+        public int Id { get; set; }
         public string VideoId { get; set; }
         public string ChannelName { get; set; }
         public int ViewCount { get; set; }

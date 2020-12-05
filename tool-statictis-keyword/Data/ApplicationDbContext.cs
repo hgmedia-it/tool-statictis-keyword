@@ -35,11 +35,11 @@ namespace tool_statictis_keyword.Data
         private void ConfigRelationShip(ModelBuilder builder)
         {
             //Keyword
-            builder.Entity<Keyword>().HasKey(ic => new { ic.Name });
+            builder.Entity<Keyword>().HasKey(ic => new { ic.Id });
             builder.Entity<Keyword>().Property(ic => ic.Id).ValueGeneratedOnAdd();
 
             //Category
-            builder.Entity<Category>().HasKey(ic => new { ic.CategoryName });
+            builder.Entity<Category>().HasKey(ic => new { ic.Id });
             builder.Entity<Category>().Property(ic => ic.Id).ValueGeneratedOnAdd();
 
             //Date
@@ -49,7 +49,7 @@ namespace tool_statictis_keyword.Data
             builder.Entity<SearchByDayResult>().HasKey(ic => new { ic.Id });
             builder.Entity<SearchByDayResult>().Property(ic => ic.Id).ValueGeneratedOnAdd();
 
-            builder.Entity<Video>().HasKey(ic => new { ic.VideoId });
+            builder.Entity<Video>().HasKey(ic => new { ic.Id });
             builder.Entity<Video>().Property(ic => ic.Id).ValueGeneratedOnAdd();
 
             //Statictis
@@ -67,15 +67,15 @@ namespace tool_statictis_keyword.Data
 
             builder.Entity<ApplicationUser>().HasData(new ApplicationUser[]
             {
-                new ApplicationUser{Id = "9cc0bd9c-d309-4b1a-b124-c9e915bbec23", UserName = "admin", NormalizedUserName = "ADMIN",
-                    Email = "admin@gmail.com", NormalizedEmail = "ADMIN@GMAIL.COM",EmailConfirmed = false, FullName = "Ad",
-                    PasswordHash = "AQAAAAEAACcQAAAAEHpP+NNw1Kb2HeY/mDctx6M0EY60IEgyfupwny8MQFOElVF1dCpvDN8mAj2Oig7bCQ==",
-                    SecurityStamp = "RP4A4QYMVOZPLECVZJHL4FUEKK3KJAE2", ConcurrencyStamp = "203d261d-e635-4ded-8310-2060366d61c2",
-                    PhoneNumber = "0359038319", PhoneNumberConfirmed = false, TwoFactorEnabled = false, LockoutEnabled = false, AccessFailedCount = 0}
+                new ApplicationUser{Id = "92ad4f43-4be7-4fb8-909f-ced532c58461", UserName = "admin", NormalizedUserName = "ADMIN",
+                    Email = "admin@gmail.com", NormalizedEmail = "ADMIN@GMAIL.COM",EmailConfirmed = true, FullName = "Ad",
+                    PasswordHash = "AQAAAAEAACcQAAAAEDjtxkKmq1HdWDIebT4dygGnXFswCLC1irkWgM0FQ3K5mCnKLFfLYRmA8Q6W9r+z4w==",
+                    SecurityStamp = "64QW72XRQWP5FI2IWOZV3ZD6ILSBV4W2", ConcurrencyStamp = "90016888-7668-4a47-9050-de70b8aa621b",
+                    PhoneNumber = "0359038319", PhoneNumberConfirmed = true, TwoFactorEnabled = false, LockoutEnabled = false, AccessFailedCount = 0}
             });
 
             builder.Entity<IdentityUserRole<string>>().HasData(
-                new IdentityUserRole<string> { RoleId = "ec864316-078a-406e-9013-f5e3d20d1f88", UserId = "9cc0bd9c-d309-4b1a-b124-c9e915bbec23" });
+                new IdentityUserRole<string> { RoleId = "ec864316-078a-406e-9013-f5e3d20d1f88", UserId = "92ad4f43-4be7-4fb8-909f-ced532c58461" });
         }
     }
 }

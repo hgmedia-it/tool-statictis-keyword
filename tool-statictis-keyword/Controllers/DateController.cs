@@ -27,26 +27,26 @@ namespace tool_statictis_keyword.Controllers
         public async Task<IActionResult> Add(Date dto)
         {
             var response = new ResponseDto<PagerDto<Date>>();
-            try
-            {
-                _context.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (_context.Date.Any(t => t.DateTime.Equals(dto.DateTime)))
-                {
-                    response.ActionState = ActionState.Warning;
-                    response.Message = $"Date time exist";
-                    return Ok(response);
-                }
+            //try
+            //{
+            //    _context.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //    if (_context.Date.Any(t => t.DateTime.Equals(dto.DateTime)))
+            //    {
+            //        response.ActionState = ActionState.Warning;
+            //        response.Message = $"Date time exist";
+            //        return Ok(response);
+            //    }
 
-                dto.UserId = _context.UserId;
-                dto.DateTime = dto.DateTime;
-                _context.Date.Add(dto);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                response.ActionState = ActionState.Error;
-                response.Message = ex.Message;
-            }
+            //    dto.UserId = _context.UserId;
+            //    dto.DateTime = dto.DateTime;
+            //    _context.Date.Add(dto);
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (Exception ex)
+            //{
+            //    response.ActionState = ActionState.Error;
+            //    response.Message = ex.Message;
+            //}
             return Ok(response);
         }
         [HttpDelete]
@@ -54,18 +54,18 @@ namespace tool_statictis_keyword.Controllers
         {
             var response = new ResponseDto<int>();
 
-            try
-            {
-                _context.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var dates = await _context.Date.Where(c => ids.Contains(c.Id)).ToListAsync();
-                _context.Date.RemoveRange(dates);
-                response.Data = await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                response.ActionState = ActionState.Error;
-                response.Message = ex.Message;
-            }
+            //try
+            //{
+            //    _context.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //    var dates = await _context.Date.Where(c => ids.Contains(c.Id)).ToListAsync();
+            //    _context.Date.RemoveRange(dates);
+            //    response.Data = await _context.SaveChangesAsync();
+            //}
+            //catch (Exception ex)
+            //{
+            //    response.ActionState = ActionState.Error;
+            //    response.Message = ex.Message;
+            //}
 
             return Ok(response);
         }

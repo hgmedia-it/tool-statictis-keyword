@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tool_statictis_keyword.Data;
 
-namespace tool_statictis_keyword.Migrations
+namespace tool_statictis_keyword.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201205032226_updateNewDataModel")]
-    partial class updateNewDataModel
+    [Migration("20201205040431_UpdateTable")]
+    partial class UpdateTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -133,21 +133,21 @@ namespace tool_statictis_keyword.Migrations
                         new
                         {
                             Id = "ec864316-078a-406e-9013-f5e3d20d1f88",
-                            ConcurrencyStamp = "b5699989-29ba-4877-b8b8-d4bc25529da4",
+                            ConcurrencyStamp = "e75b0c28-a212-4425-a1c8-4961c72df49a",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "ec864316-078a-406e-9013-f5e3d20d1f89",
-                            ConcurrencyStamp = "5ce3020c-4752-49bd-92b9-075c63b1cdee",
+                            ConcurrencyStamp = "2e7cab66-6bfc-4a38-885b-a0b91ed84fb8",
                             Name = "manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
                             Id = "ec864316-078a-406e-9013-f5e3d20d1f90",
-                            ConcurrencyStamp = "dc73d4f1-4d0c-42de-be29-e8675aeed920",
+                            ConcurrencyStamp = "2a79baff-eefb-4cc1-8cab-961131a1721a",
                             Name = "staff",
                             NormalizedName = "STAFF"
                         });
@@ -242,7 +242,7 @@ namespace tool_statictis_keyword.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "9cc0bd9c-d309-4b1a-b124-c9e915bbec23",
+                            UserId = "92ad4f43-4be7-4fb8-909f-ced532c58461",
                             RoleId = "ec864316-078a-406e-9013-f5e3d20d1f88"
                         });
                 });
@@ -338,19 +338,19 @@ namespace tool_statictis_keyword.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9cc0bd9c-d309-4b1a-b124-c9e915bbec23",
+                            Id = "92ad4f43-4be7-4fb8-909f-ced532c58461",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "203d261d-e635-4ded-8310-2060366d61c2",
+                            ConcurrencyStamp = "90016888-7668-4a47-9050-de70b8aa621b",
                             Email = "admin@gmail.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             FullName = "Ad",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHpP+NNw1Kb2HeY/mDctx6M0EY60IEgyfupwny8MQFOElVF1dCpvDN8mAj2Oig7bCQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDjtxkKmq1HdWDIebT4dygGnXFswCLC1irkWgM0FQ3K5mCnKLFfLYRmA8Q6W9r+z4w==",
                             PhoneNumber = "0359038319",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "RP4A4QYMVOZPLECVZJHL4FUEKK3KJAE2",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "64QW72XRQWP5FI2IWOZV3ZD6ILSBV4W2",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -358,23 +358,19 @@ namespace tool_statictis_keyword.Migrations
 
             modelBuilder.Entity("tool_statictis_keyword.Models.Data.Category", b =>
                 {
-                    b.Property<string>("CategoryName")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("CategoryName");
-
-                    b.HasIndex("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("Category");
                 });
@@ -401,27 +397,24 @@ namespace tool_statictis_keyword.Migrations
 
             modelBuilder.Entity("tool_statictis_keyword.Models.Data.Keyword", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CategoryName");
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("UserId");
 
@@ -435,27 +428,18 @@ namespace tool_statictis_keyword.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("VideoLiveCount")
                         .HasColumnType("int");
 
                     b.Property<int>("VideoMostPopularId")
                         .HasColumnType("int");
 
-                    b.Property<string>("VideoMostPopularVideoId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("VideoPublishCount")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("VideoMostPopularVideoId");
+                    b.HasIndex("VideoMostPopularId");
 
                     b.ToTable("SearchByDayResults");
                 });
@@ -474,10 +458,6 @@ namespace tool_statictis_keyword.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("KeywordName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("SearchByDayResultId")
                         .HasColumnType("int");
 
@@ -488,8 +468,6 @@ namespace tool_statictis_keyword.Migrations
 
                     b.HasIndex("DateId");
 
-                    b.HasIndex("KeywordName");
-
                     b.HasIndex("SearchByDayResultId");
 
                     b.HasIndex("UserId");
@@ -499,8 +477,10 @@ namespace tool_statictis_keyword.Migrations
 
             modelBuilder.Entity("tool_statictis_keyword.Models.Data.Video", b =>
                 {
-                    b.Property<string>("VideoId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ChannelId")
                         .HasColumnType("int");
@@ -508,26 +488,19 @@ namespace tool_statictis_keyword.Migrations
                     b.Property<string>("ChannelName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int?>("StatictisDateId")
                         .HasColumnType("int");
 
                     b.Property<int?>("StatictisKeywordId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("VideoId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ViewCount")
                         .HasColumnType("int");
 
-                    b.HasKey("VideoId");
-
-                    b.HasIndex("UserId");
+                    b.HasKey("Id");
 
                     b.HasIndex("StatictisKeywordId", "StatictisDateId");
 
@@ -585,13 +558,6 @@ namespace tool_statictis_keyword.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("tool_statictis_keyword.Models.Data.Category", b =>
-                {
-                    b.HasOne("tool_statictis_keyword.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("tool_statictis_keyword.Models.Data.Date", b =>
                 {
                     b.HasOne("tool_statictis_keyword.Models.ApplicationUser", "User")
@@ -603,7 +569,7 @@ namespace tool_statictis_keyword.Migrations
                 {
                     b.HasOne("tool_statictis_keyword.Models.Data.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryName")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -614,13 +580,9 @@ namespace tool_statictis_keyword.Migrations
 
             modelBuilder.Entity("tool_statictis_keyword.Models.Data.SearchByDayResult", b =>
                 {
-                    b.HasOne("tool_statictis_keyword.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.HasOne("tool_statictis_keyword.Models.Data.Video", "VideoMostPopular")
                         .WithMany()
-                        .HasForeignKey("VideoMostPopularVideoId")
+                        .HasForeignKey("VideoMostPopularId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -635,7 +597,7 @@ namespace tool_statictis_keyword.Migrations
 
                     b.HasOne("tool_statictis_keyword.Models.Data.Keyword", "Keyword")
                         .WithMany()
-                        .HasForeignKey("KeywordName")
+                        .HasForeignKey("KeywordId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -652,10 +614,6 @@ namespace tool_statictis_keyword.Migrations
 
             modelBuilder.Entity("tool_statictis_keyword.Models.Data.Video", b =>
                 {
-                    b.HasOne("tool_statictis_keyword.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.HasOne("tool_statictis_keyword.Models.Data.Statictis", null)
                         .WithMany("TopVideoPopular")
                         .HasForeignKey("StatictisKeywordId", "StatictisDateId");

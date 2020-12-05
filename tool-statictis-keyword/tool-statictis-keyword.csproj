@@ -34,10 +34,10 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20201205031101_UpdateNewDataModel.cs" />
     <Compile Remove="Data\Migrations\20201205031101_UpdateNewDataModel.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Migrations\" />
+    <Compile Remove="Data\Migrations\20201205034524_CreateNewDataModel.cs" />
+    <Compile Remove="Data\Migrations\20201205034524_CreateNewDataModel.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201205040103_UpdateTable.cs" />
+    <Compile Remove="Data\Migrations\20201205040103_UpdateTable.Designer.cs" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

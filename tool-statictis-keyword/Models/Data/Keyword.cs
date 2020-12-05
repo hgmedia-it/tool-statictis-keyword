@@ -13,9 +13,9 @@ namespace tool_statictis_keyword.Models.Data
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
     }
-    public class Category : BaseModel
+    public class Category
     {
-        
+        public int Id { get; set; }
         [Required]
         public string CategoryName { get; set; }
         public string Note { get; set; }

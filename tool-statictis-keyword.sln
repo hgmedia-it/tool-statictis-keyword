@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tool-statictis-keyword", "tool-statictis-keyword\tool-statictis-keyword.csproj", "{A5E474BD-7EE5-4230-9ACB-96727C51DC0D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5E474BD-7EE5-4230-9ACB-96727C51DC0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5E474BD-7EE5-4230-9ACB-96727C51DC0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5E474BD-7EE5-4230-9ACB-96727C51DC0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5E474BD-7EE5-4230-9ACB-96727C51DC0D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ABA157A1-2385-4777-970E-52B0F2B3D66A}
+	EndGlobalSection
+EndGlobal

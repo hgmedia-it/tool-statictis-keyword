@@ -1,0 +1,192 @@
+<div class="container">
+<div class="row border-bottom pb-3">
+    <div class="col-3">
+        <button class="btn btn-outline-info mr-3" (click)="openAddModal(addModal)">Add</button> 
+        <button class="btn btn-outline-info mr-3" (click)="openEditModal(editModal)" >Edit</button>   
+        <button class="btn btn-outline-info mr-3" (click)="openDeleteModal(deleteModal)">Delete</button> 
+    </div>
+</div>
+<div class="row pt-3 border-bottom pb-3">
+    <div class="col-3">
+        <input type="text" placeholder="name..." class="form-control mr-3" [(ngModel)] = "filters.name" (keyup.enter)="getCampaigns()">
+    </div>
+    <div class="col-3">
+        <input type="text" placeholder="description..." class="form-control mr-3" [(ngModel)] = "filters.description" (keyup.enter)="getCampaigns()">
+    </div>
+    <div class="col-3">
+        <input type="date" placeholder="start date..." class="form-control mr-3" [(ngModel)] = "filters.startDate" (keyup.enter)="getCampaigns()">
+    </div>
+    <div class="col-3">
+        <input type="date" placeholder="end date..." class="form-control mr-3" [(ngModel)] = "filters.endDate" (keyup.enter)="getCampaigns()">
+    </div>
+</div>
+<div class="row pt-3 border-bottom pb-3">
+    <div class="col">
+        <span class="mr-3"><b>Total:</b> {{pageCampaign?.itemCount}} </span>
+        <span class="mr-3"><b>Selected Item: </b>{{countSelectedItem()}}</span>
+        <span class="mr-3"><b>Page Size: </b></span>
+        <input class="btn border mr-3" style="max-width: 4rem; max-height: 2rem; cursor: auto;" type = "number" [(ngModel)]="pageCampaign.pageSize" (keyup.enter)="getCampaigns()">
+        <a class="btn" (click)="getCampaigns()"><i class="fas fa-search text-info"></i></a>
+    </div>
+</div>
+<div class="row pt-3 pb-2">
+    <div class="col">
+        <ngb-pagination class="d-flex justify-content-center" [collectionSize]="pageCampaign?.itemCount"
+        [(page)]="pageCampaign.pageNumber" [pageSize]="pageCampaign.pageSize" [maxSize]="4" [boundaryLinks]="true"
+        (pageChange)="changePage()"></ngb-pagination>
+    </div>
+</div>
+<div class="row">
+    <div class="d-block w-100" *ngFor="let alert of mainAlerts">
+      <ngb-alert [dismissible]="true" [type]="alert?.type" (close)="closeAlert(alert, mainAlerts)"
+        *ngIf="alert.timeout === false">{{alert?.message}}</ngb-alert>
+    </div>
+</div>
+<div class="row pt-3 pb-3">
+    <table class="table">
+        <thead>
+            <th><input type="checkbox" [(ngModel)]="selectedAll" (click)="selectAll()">
+            </th>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of pageCampaign?.items">
+                <td><input type="checkbox" [(ngModel)]="item.selected" (click)="selectItem(item)"></td>
+                <td>{{pageCampaign?.items?.indexOf(item) + 1}}</td>
+                <td>{{item?.name}}</td>
+                <td>{{item?.description}}</td>
+                <td>{{item?.startDate}}</td>
+                <td>{{item?.endDate}}</td>
+        </tbody>
+    </table>
+</div>
+</div>
+<ng-template #addModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add New Campaign</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        <span aria-hidden="true">&times;</span>
+    </div>
+    <div class="modal-body">
+        <div class = "container">
+            <div class="row">
+                <div class="d-block w-100" *ngFor="let alert of modalAlerts">
+                    <ngb-alert [dismissible]="true" [type]="alert?.type" (close)="closeAlert(alert, modalAlerts)"
+                    *ngIf="alert.timeout === false">{{alert?.message}}</ngb-alert>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col"> <label><b>Campaign Name:</b></label></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col"><input class="form-control" placeholder="Name" rows="2" [(ngModel)]="addDto.name"></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col"> <label><b>Description:</b></label></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col"><input class="form-control" placeholder="Description" rows="2" [(ngModel)]="addDto.description"></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col"> <label><b>Start Date:</b></label></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <input type="date" placeholder="start date..." class="form-control mr-3" [(ngModel)] = "addDto.startDate">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col"> <label><b>End Date:</b></label></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <input type="date" placeholder="end date..." class="form-control mr-3" [(ngModel)] = "addDto.endDate">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-info" (click)="addCampaign()">Add</button>
+      </div>
+</ng-template>
+<ng-template #deleteModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Delete Campaigns</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        <span aria-hidden="true">&times;</span>
+    </div>
+    <div class="modal-body">
+        <div class = "container">
+            <div class="row">
+                <div class="d-block w-100" *ngFor="let alert of modalAlerts">
+                    <ngb-alert [dismissible]="true" [type]="alert?.type" (close)="closeAlert(alert, modalAlerts)"
+                    *ngIf="alert.timeout === false">{{alert?.message}}</ngb-alert>
+                </div>
+            </div>
+            <div class="row">Do you want delete these campaign?</div>
+            <div *ngIf="deleteDto.length > 0">
+                <ul>
+                    <li *ngFor="let id of deleteDto">{{getCampaignFromId(id)?.name}}</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-info" (click)="deleteCampaign()">Delete</button>
+      </div>
+</ng-template>
+<ng-template #editModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit Campaign</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        <span aria-hidden="true">&times;</span>
+    </div>
+    <div class="modal-body">
+        <div class = "container">
+            <div class="row">
+                <div class="d-block w-100" *ngFor="let alert of modalAlerts">
+                    <ngb-alert [dismissible]="true" [type]="alert?.type" (close)="closeAlert(alert, modalAlerts)"
+                    *ngIf="alert.timeout === false">{{alert?.message}}</ngb-alert>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col"> <label><b>Campaign Name:</b></label></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col"><input class="form-control" placeholder="Name" rows="2" [(ngModel)]="editDto.name"></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col"> <label><b>Description:</b></label></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col"><input class="form-control" placeholder="Description" rows="2" [(ngModel)]="editDto.description"></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col"> <label><b>Start Date:</b></label></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <input type="date" placeholder="start date..." class="form-control mr-3" [(ngModel)] = "editDto.startDate">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col"> <label><b>End Date:</b></label></div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <input type="date" placeholder="end date..." class="form-control mr-3" [(ngModel)] = "editDto.endDate">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-info" (click)="editCampaign()">Edit</button>
+      </div>
+</ng-template>

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tool_statictis_keyword.Data;
 
 namespace tool_statictis_keyword.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201230083641_updateVideoTable2")]
+    partial class updateVideoTable2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,21 +133,21 @@ namespace tool_statictis_keyword.Data.Migrations
                         new
                         {
                             Id = "ec864316-078a-406e-9013-f5e3d20d1f88",
-                            ConcurrencyStamp = "079bf895-e88c-4540-95ef-9476bd5fdd50",
+                            ConcurrencyStamp = "8650f134-1dde-4ca1-bd7a-533929f40669",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "ec864316-078a-406e-9013-f5e3d20d1f89",
-                            ConcurrencyStamp = "16847635-d19a-422c-8734-7cb20c73573d",
+                            ConcurrencyStamp = "794e2b5f-8ad9-4d8b-ac74-425bc08dbf3a",
                             Name = "manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
                             Id = "ec864316-078a-406e-9013-f5e3d20d1f90",
-                            ConcurrencyStamp = "213cff5d-0d57-4736-aacb-3267e49ab344",
+                            ConcurrencyStamp = "d58fb49f-fd9e-4aca-b79e-480a091b7a58",
                             Name = "staff",
                             NormalizedName = "STAFF"
                         });

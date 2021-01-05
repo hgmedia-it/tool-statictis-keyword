@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tool_statictis_keyword.Data;
 
 namespace tool_statictis_keyword.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201205081653_UpdateVideoTable")]
+    partial class UpdateVideoTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,21 +133,21 @@ namespace tool_statictis_keyword.Data.Migrations
                         new
                         {
                             Id = "ec864316-078a-406e-9013-f5e3d20d1f88",
-                            ConcurrencyStamp = "079bf895-e88c-4540-95ef-9476bd5fdd50",
+                            ConcurrencyStamp = "faff44cd-f89d-4763-a510-3f64ac2e870b",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "ec864316-078a-406e-9013-f5e3d20d1f89",
-                            ConcurrencyStamp = "16847635-d19a-422c-8734-7cb20c73573d",
+                            ConcurrencyStamp = "10a7150a-5527-44c3-867c-44a0676a2369",
                             Name = "manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
                             Id = "ec864316-078a-406e-9013-f5e3d20d1f90",
-                            ConcurrencyStamp = "213cff5d-0d57-4736-aacb-3267e49ab344",
+                            ConcurrencyStamp = "72fb00e6-c79f-4c25-b935-003a137510f3",
                             Name = "staff",
                             NormalizedName = "STAFF"
                         });
@@ -435,13 +437,16 @@ namespace tool_statictis_keyword.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ChannelId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ChannelId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ChannelName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("PublishDate")
+                    b.Property<bool>("IsLive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")

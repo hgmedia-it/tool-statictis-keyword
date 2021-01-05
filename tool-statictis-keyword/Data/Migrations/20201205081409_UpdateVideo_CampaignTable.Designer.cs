@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tool_statictis_keyword.Data;
 
 namespace tool_statictis_keyword.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201205081409_UpdateVideo_CampaignTable")]
+    partial class UpdateVideo_CampaignTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,21 +133,21 @@ namespace tool_statictis_keyword.Data.Migrations
                         new
                         {
                             Id = "ec864316-078a-406e-9013-f5e3d20d1f88",
-                            ConcurrencyStamp = "079bf895-e88c-4540-95ef-9476bd5fdd50",
+                            ConcurrencyStamp = "5c11d6b4-8f8c-4cf1-a928-35d92caf68a5",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "ec864316-078a-406e-9013-f5e3d20d1f89",
-                            ConcurrencyStamp = "16847635-d19a-422c-8734-7cb20c73573d",
+                            ConcurrencyStamp = "715be976-08bf-4a4d-9eba-6b0f5a77b7b4",
                             Name = "manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
                             Id = "ec864316-078a-406e-9013-f5e3d20d1f90",
-                            ConcurrencyStamp = "213cff5d-0d57-4736-aacb-3267e49ab344",
+                            ConcurrencyStamp = "83445a87-ffd4-4571-b066-d97471055d23",
                             Name = "staff",
                             NormalizedName = "STAFF"
                         });
@@ -391,7 +393,10 @@ namespace tool_statictis_keyword.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CampaignId")
+                    b.Property<string>("CampaignId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CampaignId1")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -406,7 +411,7 @@ namespace tool_statictis_keyword.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CampaignId");
+                    b.HasIndex("CampaignId1");
 
                     b.HasIndex("UserId");
 
@@ -435,13 +440,16 @@ namespace tool_statictis_keyword.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ChannelId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ChannelId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ChannelName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("PublishDate")
+                    b.Property<bool>("IsLive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
@@ -547,9 +555,7 @@ namespace tool_statictis_keyword.Data.Migrations
                 {
                     b.HasOne("tool_statictis_keyword.Models.Data.Campaign", "Campaign")
                         .WithMany()
-                        .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CampaignId1");
 
                     b.HasOne("tool_statictis_keyword.Models.ApplicationUser", "User")
                         .WithMany()

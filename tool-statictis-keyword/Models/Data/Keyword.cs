@@ -10,14 +10,16 @@ namespace tool_statictis_keyword.Models.Data
     {
         [Required]
         public string Name { get; set; }
-        public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
-    }
-    public class Category
-    {
-        public int Id { get; set; }
-        [Required]
-        public string CategoryName { get; set; }
         public string Note { get; set; }
+        public int CampaignId { get; set; }
+        public virtual Campaign Campaign { get; set; }
+        public virtual ICollection<Keyword_Video> Videos { get; set; }
+    }
+    public class Keyword_Video
+    {
+        public int KeywordId { get; set; }
+        public virtual Keyword Keyword { get; set; }
+        public int VideoId { get; set; }
+        public virtual Video Video { get; set; }
     }
 }

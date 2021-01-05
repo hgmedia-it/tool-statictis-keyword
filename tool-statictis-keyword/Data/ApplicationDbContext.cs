@@ -16,11 +16,9 @@ namespace tool_statictis_keyword.Data
     {
         public string UserId { get; set; }
         public virtual DbSet<Keyword> Keyword { get; set; }
-        public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Date> Date { get; set; }
-        public virtual DbSet<Statictis> Statictis { get; set; }
         public virtual DbSet<Video> Video { get; set; }
-        public virtual DbSet<SearchByDayResult> SearchByDayResults { get; set; }
+        public virtual DbSet<Campaign> Campaign { get; set; }
+        public virtual DbSet<ViewsCountByDay> ViewsCountByDay { get; set; }
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
@@ -30,31 +28,28 @@ namespace tool_statictis_keyword.Data
         {
             base.OnModelCreating(builder);
             ConfigRelationShip(builder);
+            ConfigGlobalFilter(builder);
             SeedData(builder);
         }
         private void ConfigRelationShip(ModelBuilder builder)
         {
-            //Keyword
-            builder.Entity<Keyword>().HasKey(ic => new { ic.Id });
-            builder.Entity<Keyword>().Property(ic => ic.Id).ValueGeneratedOnAdd();
-
-            //Category
-            builder.Entity<Category>().HasKey(ic => new { ic.Id });
-            builder.Entity<Category>().Property(ic => ic.Id).ValueGeneratedOnAdd();
-
-            //Date
-            builder.Entity<Date>().HasKey(ic => new { ic.Id });
-            builder.Entity<Date>().Property(ic => ic.Id).ValueGeneratedOnAdd();
-
-            builder.Entity<SearchByDayResult>().HasKey(ic => new { ic.Id });
-            builder.Entity<SearchByDayResult>().Property(ic => ic.Id).ValueGeneratedOnAdd();
-
-            builder.Entity<Video>().HasKey(ic => new { ic.Id });
-            builder.Entity<Video>().Property(ic => ic.Id).ValueGeneratedOnAdd();
-
-            //Statictis
-            builder.Entity<Statictis>().HasKey(ic => new { ic.KeywordId, ic.DateId });
-
+            
+            builder.Entity<Keyword_Video>().HasKey(ic => new { ic.KeywordId, ic.VideoId });
+            builder.Entity<Keyword_Video>()
+                .HasOne<Keyword>(ic => ic.Keyword)
+                .WithMany(c => c.Videos)
+                .HasForeignKey(ic => ic.KeywordId);
+            builder.Entity<Keyword_Video>()
+                .HasOne<Video>(ic => ic.Video)
+                .WithMany(i => i.Keywords)
+                .HasForeignKey(ic => ic.VideoId);
+        }
+        private void ConfigGlobalFilter(ModelBuilder builder)
+        {
+            builder.Entity<Video>().HasQueryFilter(i => string.IsNullOrEmpty(UserId) || i.UserId == UserId);
+            builder.Entity<Keyword>().HasQueryFilter(i => string.IsNullOrEmpty(UserId) || i.UserId == UserId);
+            builder.Entity<Campaign>().HasQueryFilter(i => string.IsNullOrEmpty(UserId) || i.UserId == UserId);
+            builder.Entity<ViewsCountByDay>().HasQueryFilter(i => string.IsNullOrEmpty(UserId) || i.UserId == UserId);
         }
         private void SeedData(ModelBuilder builder)
         {
